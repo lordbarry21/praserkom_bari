@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->enum('category', ['Musik', 'Festival', 'Seminar']);
             $table->integer('price');
             $table->text('description');
