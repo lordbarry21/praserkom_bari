@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('name');
             $table->enum('category', ['Musik', 'Festival', 'Seminar']);
-            $table->integer('Harga per Tiket');
+            $table->integer('price');
             $table->text('description');
-            $table->string('image_url')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
