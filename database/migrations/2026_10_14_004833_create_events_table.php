@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->enum('category', ['Musik', 'Festival', 'Seminar']);
-            $table->integer('price');
+            $table->integer('ticket_price');
             $table->text('description');
             $table->string('image')->nullable();
             $table->timestamps();

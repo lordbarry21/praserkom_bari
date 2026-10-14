@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('customer_name');
             $table->string('customer_email');
-            $table->integer('total_price');
-            $table->enum('status', ['Pending', 'Confirmed', 'Canceled'])->default('Pending');
+            $table->integer('total_price')->default(0);
+            $table->enum('status', ['Pending', 'Confirmed', 'Cancelled'])->default('Pending');
             $table->timestamps();
         });
     }

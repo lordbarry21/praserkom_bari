@@ -1,58 +1,172 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Ticket Box - Sistem Pemesanan Tiket Konser & Event Musik
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> **Uji Kompetensi Keahlian (JWP - Junior Web Programmer)**  
+> **Tema Proyek:** Sistem Pemesanan Tiket Konser / Event Musik (Ticket Box)  
+> **Nama Folder Proyek:** `praserkom_bari`
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Deskripsi & Skenario Aplikasi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Ticket Box** adalah aplikasi web dinamis berbasis **Laravel** untuk pemesanan tiket konser musik, festival, dan seminar secara online.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Fitur Utama:
+1. **Halaman Publik (Customer UI):**
+   - Katalog daftar tiket konser dan event dengan tampilan kartu modern & responsif (Tailwind CSS).
+   - Filter daftar konser secara instan tanpa reload berdasarkan kategori: **Semua**, **Musik**, **Festival**, dan **Seminar**.
+   - Pemilihan jumlah tiket dengan tombol counter (+ / -) yang interaktif.
+   - Form pengisian data diri pelanggan (**Nama Lengkap & Alamat Email**).
+   - Modal dialog konfirmasi pesanan (invoice preview & rincian total pembayaran) sebelum checkout dikirim.
+   - Pemrosesan transaksi aman yang dibungkus oleh **Database Transaction (`DB::beginTransaction`)** untuk menjamin integritas multi-tabel (`orders` dan `order_details`).
 
-## Learning Laravel
+2. **Halaman Pengelolaan Terproteksi (Admin UI):**
+   - Sistem otentikasi login/logout terproteksi menggunakan Laravel Breeze.
+   - **Dashboard Ringkasan Statistik:** Total Pesanan Masuk, Total Omset/Pendapatan, Pesanan Pending, dan Pesanan Terkonfirmasi.
+   - **Rekap Pesanan Tiket:** Tabel pemantauan seluruh transaksi pesanan, data pemesan, rincian tiket beserta kuantitas & subtotalnya, serta fitur pengubah status pesanan (**Pending**, **Confirmed**, **Cancelled**).
+   - **CRUD Master Data Konser:** Tambah event baru, edit informasi event, hapus event beserta pembersihan otomatis berkas poster lama di storage server, dan upload gambar poster konser.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ Kebutuhan Sistem (System Requirements)
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- **PHP:** Versi 8.2 atau 8.3+ (dengan ekstensi `pdo_mysql`, `mbstring`, `fileinfo`, `openssl`, `gd`)
+- **Web Server / Database:** Apache & MySQL (XAMPP / Laragon)
+- **Composer:** Versi 2.x
+- **Node.js & NPM:** Node.js v18+ atau v20+
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 🚀 Panduan Instalasi & Menjalankan Proyek
 
+Ikuti langkah-langkah di bawah ini untuk menginstal dan menjalankan aplikasi:
+
+### 1. Masuk ke Direktori Proyek
+Buka terminal (Command Prompt / PowerShell / Git Bash) di dalam folder proyek:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+cd praserkom_bari
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Instalasi Dependensi PHP & Frontend
+```bash
+composer install
+npm install
+npm run build
+```
 
-## Contributing
+### 3. Konfigurasi Environment (`.env`)
+Salin file konfigurasi environment bila belum ada:
+```bash
+cp .env.example .env
+```
+Pastikan pengaturan koneksi database di file `.env` mengarah ke database `db_ticket_konser`:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db_ticket_konser
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Generate application key:
+```bash
+php artisan key:generate
+```
 
-## Code of Conduct
+### 4. Menghubungkan Storage Gambar (Symlink)
+Jalankan perintah ini agar poster konser yang diunggah dapat diakses oleh browser:
+```bash
+php artisan storage:link
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 5. Migrasi & Seeder Database
+Buat database `db_ticket_konser` di MySQL (lewat phpMyAdmin / terminal), lalu jalankan:
+```bash
+php artisan migrate:fresh --seed
+```
+*Perintah ini akan membuat struktur tabel `events`, `orders`, `order_details`, serta mengisi data awal konser musik dan akun admin default.*
 
-## Security Vulnerabilities
+### 6. Menjalankan Server Lokal
+```bash
+php artisan serve
+```
+Aplikasi dapat diakses melalui browser di: **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 🔑 Hak Akses & Kredensial Default
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 1. Pelanggan (Customer / Publik)
+- **URL Akses:** `http://127.0.0.1:8000/`
+- Tidak memerlukan login. Pelanggan dapat langsung memilih tiket konser, mengisi nama dan email, lalu melakukan checkout.
+
+### 2. Administrator (Petugas / Panitia)
+- **URL Login:** `http://127.0.0.1:8000/login`
+- **Email:** `admin@gmail.com`
+- **Password:** `password123`
+- **Halaman Dashboard:** `http://127.0.0.1:8000/dashboard`
+- **Halaman Master Data Event:** `http://127.0.0.1:8000/events`
+
+---
+
+## 🗄️ Struktur Basis Data (`db_ticket_konser`)
+
+Sesuai ketentuan teknis JWP, basis data dirancang minimal menggunakan 3 tabel dengan relasi foreign key yang terstruktur:
+
+### 1. Tabel `events` (Master Data Event / Konser)
+| Kolom | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id` | BigInt (PK) | Auto Increment Primary Key |
+| `title` | Varchar(255) | Nama Konser / Event |
+| `category` | Enum | Pilihan: `'Musik'`, `'Festival'`, `'Seminar'` |
+| `ticket_price`| Integer | Harga per tiket (Rp) |
+| `description` | Text | Deskripsi lengkap konser / event |
+| `image` | Varchar(255) (Nullable) | Lokasi path file poster di storage |
+| `created_at` & `updated_at` | Timestamps | Waktu pembuatan & pembaruan data |
+
+### 2. Tabel `orders` (Header Transaksi Pesanan)
+| Kolom | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id` | BigInt (PK) | Auto Increment Primary Key |
+| `customer_name` | Varchar(255) | Nama lengkap pemesan tiket |
+| `customer_email` | Varchar(255) | Alamat email pemesan tiket |
+| `total_price` | Integer | Total pembayaran keseluruhan pesanan |
+| `status` | Enum | Pilihan: `'Pending'`, `'Confirmed'`, `'Cancelled'` |
+| `created_at` & `updated_at` | Timestamps | Waktu transaksi dibuat & diperbarui |
+
+### 3. Tabel `order_details` (Detail Transaksi / Item Tiket)
+| Kolom | Tipe Data | Keterangan |
+| :--- | :--- | :--- |
+| `id` | BigInt (PK) | Auto Increment Primary Key |
+| `order_id` | BigInt (FK) | Relasi Foreign Key ke `orders.id` (onDelete: cascade) |
+| `event_id` | BigInt (FK) | Relasi Foreign Key ke `events.id` (onDelete: cascade) |
+| `quantity` | Integer | Jumlah tiket konser yang dipesan |
+| `subtotal` | Integer | Harga tiket dikali jumlah kuantitas |
+| `created_at` & `updated_at` | Timestamps | Waktu pencatatan data item tiket |
+
+---
+
+## 💡 Penjelasan Aspek Teknis (Kompetensi JWP)
+
+1. **Database Transaction (`DB::beginTransaction()`):**
+   - Diimplementasikan pada `OrderController@store`.
+   - Mengelompokkan proses insert ke tabel header `orders` dan looping insert ke tabel detail `order_details` dalam satu transaksi tunggal.
+   - Bila salah satu item gagal tersimpan, `DB::rollBack()` akan otomatis dipanggil untuk meng-undo seluruh perubahan sehingga mencegah terjadinya data yatim piatu / corrupt data di database.
+   - Bila seluruh proses tervalidasi dan berhasil, `DB::commit()` akan mengesahkan data permanen ke MySQL.
+
+2. **Keamanan Input & Validasi Server-Side:**
+   - Menggunakan `$request->validate()` di seluruh controller (`OrderController` dan `EventController`) untuk memastikan format email, keabsahan harga non-negatif, teks judul, serta pembatasan file upload gambar (maks. 2MB dengan ekstensi JPEG/PNG/JPG).
+   - Perlindungan serangan Cross-Site Request Forgery menggunakan token directive `@csrf` di setiap formulir transaksi dan aksi status.
+
+3. **Optimasi Performa & Query Database:**
+   - Menerapkan **Eager Loading** (`Order::with(['orderDetails.event'])`) di dashboard admin guna menghindari masalah **N+1 Query Problem**, sehingga ribuan baris data transaksi dapat dimuat dalam waktu milidetik secara efisien.
+
+4. **Testing Otomatis (Unit & Feature Test):**
+   - Proyek dilengkapi pengujian otomatis PHPUnit yang mencakup katalog publik, checkout transaksi multi-tabel, otentikasi login admin, CRUD konser dengan upload gambar poster, dan perubahan status pesanan.
+   - Menjalankan test:
+     ```bash
+     php artisan test
+     ```
+
+---
+*Dikembangkan untuk Uji Pra-Serkom / Sertifikasi Kompetensi JWP (Junior Web Programmer).*
