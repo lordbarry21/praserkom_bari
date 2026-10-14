@@ -23,7 +23,7 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'category' => 'required|in:Musik,Festival,Seminar',
             'price' => 'required|numeric|min:0',
             'description' => 'required|string',
@@ -36,7 +36,7 @@ class EventController extends Controller
         }
 
         Event::create([
-            'name' => $request->name,
+            'title' => $request->title,
             'category' => $request->category,
             'price' => $request->price,
             'description' => $request->description,
@@ -54,7 +54,7 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'category' => 'required|in:Musik,Festival,Seminar',
             'price' => 'required|numeric|min:0',
             'description' => 'required|string',
@@ -70,7 +70,7 @@ class EventController extends Controller
         }
 
         $event->update([
-            'name' => $request->name,
+            'title' => $request->title,
             'category' => $request->category,
             'price' => $request->price,
             'description' => $request->description,

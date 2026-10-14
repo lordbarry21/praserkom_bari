@@ -30,7 +30,7 @@
                             <span class="text-gray-400 text-xs">No Image</span>
                         @endif
                     </td>
-                    <td class="p-3 font-semibold">{{ $event->name }}</td>
+                    <td class="p-3 font-semibold">{{ $event->title }}</td>
                     <td class="p-3">{{ $event->category }}</td>
                     <td class="p-3 font-bold text-green-600">Rp {{ number_format($event->price, 0, ',', '.') }}</td>
                     <td class="p-3">
