@@ -73,7 +73,7 @@
                     <div class="text-2xl font-extrabold text-gray-900 mt-2">
                         {{ $confirmedCount ?? $orders->where('status', 'Confirmed')->count() }}
                     </div>
-                    <p class="text-xs text-gray-400 mt-1">Pesanan tiket sukses</p>
+                    <p class="text-xs text-grey-400 mt-1">Pesanan tiket sukses</p>
                 </div>
             </div>
 
@@ -136,26 +136,8 @@
                                     <td class="p-4 whitespace-nowrap text-gray-800 font-semibold">
                                         Rp {{ number_format($order->total_price, 0, ',', '.') }}
                                     </td>
-                                    <td class="p-4 whitespace-nowrap">
-                                        @php
-                                            $st = strtolower($order->status);
-                                        @endphp
-                                        @if($st === 'pending')
-                                            <span class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                                                Pending
-                                            </span>
-                                        @elseif($st === 'confirmed' || $st === 'completed' || $st === 'selesai')
-                                            <span class="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                                Confirmed
-                                            </span>
-                                        @else
-                                            <span class="inline-flex items-center gap-1.5 bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                                                Cancelled
-                                            </span>
-                                        @endif
+                                    <td class="p-4 whitespace-nowrap text-gray-800 font-medium">
+                                        {{ $order->status }}
                                     </td>
                                     <td class="p-4 text-center whitespace-nowrap">
                                         <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">

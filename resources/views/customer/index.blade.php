@@ -9,20 +9,7 @@
 <body class="bg-gray-100 p-6 font-sans">
 
     <div class="max-w-5xl mx-auto">
-        <div class="relative flex flex-col items-center justify-center mb-6 text-center">
-            @if (Route::has('login'))
-                <div class="sm:absolute sm:right-0 sm:top-0 mb-3 sm:mb-0">
-                    @auth
-                        <a href="{{ route('dashboard') }}" class="text-xs font-semibold text-gray-500 hover:text-gray-900 border border-gray-300 rounded-lg px-3 py-1.5 bg-white transition">
-                            Dashboard Admin
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-xs font-semibold text-gray-500 hover:text-gray-900 border border-gray-300 rounded-lg px-3 py-1.5 bg-white transition">
-                            Login Admin
-                        </a>
-                    @endauth
-                </div>
-            @endif
+        <div class="text-center mb-6">
             <h1 class="text-3xl font-bold text-gray-800">Pemesanan Tiket Konser</h1>
             <p class="text-gray-500 text-sm mt-1">Pilih tiket konser / event musik dan masukkan data pemesan Anda</p>
         </div>

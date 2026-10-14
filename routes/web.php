@@ -17,11 +17,14 @@ Route::get('/welcome', function () {
 Route::post('/checkout', [OrderController::class, 'store'])->name('customer.checkout');
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 
-// 2. Rute Dashboard Breeze
-// CONTOH: Mengarahkan URL /dashboard ke rekap pesanan admin. Middleware 'auth' memastikan hanya pengguna yang sudah login yang bisa melihat.
+// 2. Rute Dashboard Admin (/dashboard & /admin)
+// Memastikan akses lewat URL /admin atau /dashboard diarahkan ke rekap pesanan admin (wajib auth).
 Route::get('/dashboard', [OrderController::class, 'adminDashboard'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+Route::get('/admin', [OrderController::class, 'adminDashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin');
 
 // 3. Rute Grup Terproteksi Admin (Wajib Login)
 Route::middleware('auth')->group(function () {
@@ -33,10 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/admin/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
     Route::patch('/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
-    // Route Resource:
-    // CONTOH: Otomatis membangkitkan rute CRUD sekaligus (/events, /events/create, /events/{id}/edit, dll) untuk mempermudah kelola master data konser.
+    // Route Resource Master Konser (/events, /admin/events, /admin/event)
     Route::resource('events', EventController::class);
     Route::resource('/admin/events', EventController::class);
+    Route::get('/admin/event', [EventController::class, 'index'])->name('admin.event.index');
 });
 
 // Memanggil rute otentikasi login & logout bawaan Laravel Breeze (/login, /logout, /register)
