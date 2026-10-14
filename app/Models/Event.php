@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    //
+    
+    use HasFactory;
+
+    protected $table = 'events';
+    protected $guarded = ['id'];    
 }
